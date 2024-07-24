@@ -11,7 +11,7 @@
     <div id="black-fade" class="fade-animation">
         <div id="randomTextObj" class="p"><i class="fa fa-heart" style="font-size:10px"></i> made by malidev itself <i class="fa fa-heart" style="font-size:10px"></i></div>
         <div class="loading-text" style="font-size:85px">_loading_</div>
-        <div class="p"><i class="fa fa-heart" style="font-size:10px"></i> last update: 24.07.2024 <i class="fa fa-heart" style="font-size:10px"></i></div>
+        <div class="p" id="last-update"><i class="fa fa-heart" style="font-size:10px"></i> last update: <span id="last-update-date">&ltunknown&gt</span> <i class="fa fa-heart" style="font-size:10px"></i></div>
         
     </div>
 
@@ -33,13 +33,25 @@
                 </div>
                 <audio id="audio" src=""style="display:none;" autoplay></audio>
                 <div class="controls">
+                    <button id="randomize" class="randomize-button">
+                        <i class="fa fa-random"></i>
+                        <span id="checkmark-icon" class="checkmark-icon">
+                          <i class="fa fa-check"></i>
+                        </span>
+                      </button>
                     <button id="prev"><i class="fa fa-backward"></i></button>
                     <button id="play-pause" class="circle-button"><i class="fa fa-play"></i></button>
                     <button id="next"><i class="fa fa-forward"></i></button>
+                    <button id="loop" class="loop-button">
+                        <i class="fa fa-repeat"></i>
+                        <span id="loop-checkmark-icon" class="loop-checkmark-icon">
+                          <i class="fa fa-check"></i>
+                        </span>
+                      </button>
                 </div>
-                <div class="progress-container">
+                <div class="progress-container" id="progress-container">
                     <div class="progress-bar" id="progress-bar"></div>
-                </div>
+                </div>                
                 <div class="time">
                     <span id="current-time">0:00</span> / <span id="duration">0:00</span>
                 </div>
@@ -60,6 +72,34 @@
     </div>
 
     <script>
+       async function fetchLastUpdate() {
+            try {
+                const response = await fetch('https://api.github.com/repos/malithedeveloper/malithedeveloper.github.io/commits?per_page=1');
+                const data = await response.json();
+                console.log(data); // Added for debugging
+                if (data && data.length > 0) {
+                    const lastUpdate = new Date(data[0].commit.committer.date);
+                    const formattedDate = lastUpdate.toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+                    const formattedTime = lastUpdate.toLocaleTimeString('en-GB', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    document.getElementById('last-update-date').textContent = `${formattedDate} ${formattedTime}`;
+                } else {
+                    console.error('No commits found in the repository');
+                }
+            } catch (error) {
+                console.error('Error fetching last update:', error);
+            }
+        }
+
+        fetchLastUpdate();
+
+
         function redirectGithub(){ window.open("https://github.com/malithedeveloper", "_blank").focus(); }
         function redirectInfo(){ alert("coming soon") }
         function redirectDiscord(){ alert("malidev") }
@@ -130,13 +170,71 @@
     const volumeControl = document.getElementById('volume');
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
-
+    const randomizeButton = document.getElementById('randomize');
+    const loopButton = document.getElementById('loop');
+    const checkmarkIcon = document.getElementById('checkmark-icon');
+    const loopcheckmarkIcon = document.getElementById('loop-checkmark-icon');    
     let songs = [];
-    let symbols = ["᯽", "᯼", "᯾", "᥆", "𐲡", "𐲲", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
+    let symbols = ["!!", "᯼", "᯾", "O", "-", "+", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
     let songIndex = 0;
+    let randomize = false;
+    let loop = false;
+
+    function setProgress(e) {
+    const width = this.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+
+    audio.currentTime = (clickX / width) * duration;
+}
+
+const progressContainer = document.getElementById('progress-container');
+progressContainer.addEventListener('click', setProgress);
 
     let titleRND = symbols[Math.floor(Math.random() * symbols.length)]
     document.title = titleRND + " malidev " + titleRND
+
+    async function toggleLoopButton() {
+
+  if (loop) {
+    loop = false;
+    loopButton.style.color = 'white'; // change the text color back to normal
+    loopButton.style.fontWeight = 'normal'; // change the font weight back to normal
+    loopcheckmarkIcon.style.opacity = 0; // hide the checkmark icon
+  } else {
+    loop = true;
+    loopButton.style.color = 'white'; // change the text color to bold white
+    loopButton.style.fontWeight = 'bold'; // change the font weight to bold
+    loopcheckmarkIcon.style.opacity = 1; // show the checkmark icon
+
+    // Add scale click animation
+    loopButton.classList.add('animate-click');
+    setTimeout(() => {
+      loopButton.classList.remove('animate-click');
+    }, 500);
+  }
+}
+
+    async function toggleRandomButton() {
+
+  if (randomize) {
+    randomize = false;
+    randomizeButton.style.color = 'white'; // change the text color back to normal
+    randomizeButton.style.fontWeight = 'normal'; // change the font weight back to normal
+    checkmarkIcon.style.opacity = 0; // hide the checkmark icon
+  } else {
+    randomize = true;
+    randomizeButton.style.color = 'white'; // change the text color to bold white
+    randomizeButton.style.fontWeight = 'bold'; // change the font weight to bold
+    checkmarkIcon.style.opacity = 1; // show the checkmark icon
+
+    // Add scale click animation
+    randomizeButton.classList.add('animate-click');
+    setTimeout(() => {
+      randomizeButton.classList.remove('animate-click');
+    }, 500);
+  }
+}
 
     async function loadSongs() {
     try {
@@ -150,6 +248,7 @@
                         path: song.path
                     };
                 });
+                songIndex = Math.floor(Math.random() * songs.length);
                 loadSong(songIndex, songList);
             } else {
                 console.error('No songs found in the /songs directory');
@@ -165,11 +264,17 @@
 async function loadSong(index, songList) {
     if (index >= 0 && index < songList.length) {
         const song = songList[index];
-        console.log(`Loading song: ${song.name}`);
         audio.src = song.path;
         songIndex = index;
-        let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('file-name').textContent = randomSelection + " " + song.name + " " + randomSelection;
+        const songName = songList[index].name;
+        const fileNameElement = document.getElementById('file-name');
+        let randomSymbol = symbols[Math.floor(Math.random() * symbols.length)]
+        if (songName.length + 4 > 35) {
+            fileNameElement.style.setProperty('--marquee-duration', `${songName.length / 20}s`); // Adjust the animation duration based on the length of the song title
+            fileNameElement.innerHTML = `<marquee>${randomSymbol} ${songName} ${randomSymbol}</marquee>`;
+        } else {
+            fileNameElement.textContent = randomSymbol + " " + songName + " " + randomSymbol;
+        }
     } else {
         console.error(`Invalid song index: ${index}`);
     }
@@ -187,34 +292,70 @@ async function loadSong(index, songList) {
         }
     }
 
-    function updateProgress() {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-
-        const currentMinutes = Math.floor(audio.currentTime / 60);
-        const currentSeconds = Math.floor(audio.currentTime % 60);
-        const durationMinutes = Math.floor(audio.duration / 60);
-        const durationSeconds = Math.floor(audio.duration % 60);
-
-        currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
-        durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+    function audioPause() {
+        playPauseIcon.classList.add('fa-play');
+        playPauseIcon.classList.remove('fa-pause');
     }
+
+    function audioPlaying() {
+        playPauseIcon.classList.add('fa-pause');
+        playPauseIcon.classList.remove('fa-play');
+    }
+
+    
+
+    audio.addEventListener('ended', function() {
+        audioPause();
+        if (loop) {
+            loadSong(songIndex, songs);
+            audio.play();
+            audioPlaying();
+        } else {
+            nextSong();
+        }
+        });
+
+        function updateProgress() {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = `${progress}%`;
+
+    const currentMinutes = Math.floor(audio.currentTime / 60);
+    const currentSeconds = Math.floor(audio.currentTime % 60);
+    const durationMinutes = Math.floor(audio.duration / 60);
+    const durationSeconds = Math.floor(audio.duration % 60);
+
+    currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+    durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+}
+
 
     function changeVolume() {
         audio.volume = volumeControl.value;
     }
 
     function nextSong() {
-        songIndex = (songIndex + 1) % songs.length;
-        loadSong(songIndex, songs);
-        audio.play();
+    if (randomize) {
+      songIndex = Math.floor(Math.random() * songs.length);
+    } else {
+      songIndex = (songIndex + 1) % songs.length;
     }
+    loadSong(songIndex, songs);
+    audio.play();
+    audioPlaying();
+    
 
-    function prevSong() {
-        songIndex = (songIndex - 1 + songs.length) % songs.length;
-        loadSong(songIndex, songs);
-        audio.play();
+  }
+
+  function prevSong() {
+    if (randomize) {
+      songIndex = Math.floor(Math.random() * songs.length);
+    } else {
+      songIndex = (songIndex - 1 + songs.length) % songs.length;
     }
+    loadSong(songIndex, songs);
+    audio.play();
+    audioPlaying();
+  }
 
     function randomText() {
         let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
@@ -224,10 +365,11 @@ async function loadSong(index, songList) {
 
     playPauseBtn.addEventListener('click', playPauseAudio);
     audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', nextSong);
     volumeControl.addEventListener('input', changeVolume);
     nextBtn.addEventListener('click', nextSong);    
     prevBtn.addEventListener('click', prevSong);
+    randomizeButton.addEventListener('click', toggleRandomButton)
+    loopButton.addEventListener('click', toggleLoopButton)
 
     window.addEventListener('load', loadSongs);
     
