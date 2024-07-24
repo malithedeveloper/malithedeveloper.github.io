@@ -1,4 +1,6 @@
 [
-    "/songs/London View (Slowed).mp3"
-]
-      
+    { 
+        "name": "London View", 
+        "path": "/songs/London View (Slowed).mp3" 
+    } 
+] 

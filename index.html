@@ -58,7 +58,6 @@
             </div>
         </div>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
         function redirectGithub(){ window.open("https://github.com/malithedeveloper", "_blank").focus(); }
@@ -145,34 +144,48 @@
     const nextBtn = document.getElementById('next');
 
     let songs = [];
-    let symbols = ["᯽", "᯼", "᯾", "᥆", "𐲡", "𐲲", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", ""]
+    let symbols = ["᯽", "᯼", "᯾", "᥆", "𐲡", "𐲲", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
     let songIndex = 0;
 
     async function loadSongs() {
-        try {
-            const response = await fetch('songs.json');
-            if (response.ok) {
-                songs = await response.json();
-                if (songs.length > 0) {
-                    loadSong(songIndex);
-                } else {
-                    console.error('No songs found in the /songs directory');
-                }
+    try {
+        const response = await fetch('songs.json');
+        if (response.ok) {
+            songs = await response.json();
+            if (songs.length > 0) {
+                // Extract song names and paths
+                const songList = songs.map((song) => {
+                    return {
+                        name: song.name,
+                        path: song.path
+                    };
+                });
+                loadSong(songIndex, songList);
             } else {
-                console.error('Failed to load songs from /songs directory');
+                console.error('No songs found in the /songs directory');
             }
-        } catch (error) {
-            console.error('Error fetching songs:', error);
+        } else {
+            console.error('Failed to load songs from /songs directory');
         }
+    } catch (error) {
+        console.error('Error fetching songs:', error);
     }
+}
 
-    function loadSong(index) {
-        audio.src = `/songs/${songs[index]}`;
+async function loadSong(index, songList) {
+    if (index >= 0 && index < songList.length) {
+        const song = songList[index];
+        console.log(`Loading song: ${song.name}`);
+        // Use song.name instead of song.path
+        audio.src = song.path;
+        audio.play();
+        songIndex = index;
         let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('file-name').textContent = randomSelection + " " +songs[index].replace(".mp3", " " + randomSelection);
-        playPauseIcon.classList.remove('fa-pause');
-        playPauseIcon.classList.add('fa-play');
+        document.getElementById('file-name').textContent = randomSelection + " " + song.name + " " + randomSelection;
+    } else {
+        console.error(`Invalid song index: ${index}`);
     }
+}
 
     async function playRandomSong() {
         await loadSongs();
@@ -216,13 +229,13 @@
 
     function nextSong() {
         songIndex = (songIndex + 1) % songs.length;
-        loadSong(songIndex);
+        loadSong(songIndex, songs);
         audio.play();
     }
 
     function prevSong() {
         songIndex = (songIndex - 1 + songs.length) % songs.length;
-        loadSong(songIndex);
+        loadSong(songIndex, songs);
         audio.play();
     }
 
