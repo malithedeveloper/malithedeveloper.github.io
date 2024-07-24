@@ -350,7 +350,7 @@ button:hover {
     appearance: none;
     width: 100px;
     background: rgba(255, 255, 255, 0.3);
-    height: 5px;
+    height: 10px;
     border-radius: 5px;
     overflow: hidden;
     outline: none;
