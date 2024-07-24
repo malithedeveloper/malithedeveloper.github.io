@@ -11,11 +11,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 #randomTextObj {
-    transform: translateX(-45.5%) scale(0.8) translateY(1600%);
+    transform: translateX(-45.5%) scale(0.5) translateY(1600%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: center;
+    margin-left: center;
+    margin-bottom: center;
+    margin-right: center;
 }
 
 #last-update {
-    transform: translateX(-46.9%) scale(0.8) translateY(1100%);
+    transform: translateX(-46.9%) scale(0.5) translateY(1100%);
 }
 
 body {

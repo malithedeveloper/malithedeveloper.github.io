@@ -70,12 +70,26 @@
             </div>
         </div>
     </div>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
 
         function isMobile() {
     return /Mobi|Android/i.test(navigator.userAgent);
     }  
+        // prevent scrolling from outside of input field
+        $(document).on('touchstart', function(e) {
+            if (e.target.nodeName !== 'INPUT') {
+                e.preventDefault();
+            }
+        });
+
+        // prevent scrolling from within input field
+        $(document).on('touchmove', function(e) {
+            if (e.target.nodeName == 'INPUT') {
+                e.preventDefault();
+            }
+        });
+
         if (isMobile()) {
             document.body.classList.add('no-scroll');
             const link = document.getElementById('dynamic-stylesheet');
@@ -90,7 +104,6 @@
             try {
                 const response = await fetch('https://api.github.com/repos/malithedeveloper/malithedeveloper.github.io/commits?per_page=1');
                 const data = await response.json();
-                console.log(data); // Added for debugging
                 if (data && data.length > 0) {
                     const lastUpdate = new Date(data[0].commit.committer.date);
                     const formattedDate = lastUpdate.toLocaleDateString('en-GB', {
@@ -134,18 +147,20 @@
 
         fadeOutAndRemove();
 
-        const rainContainer = document.querySelector('.rain');
-        const numberOfDrops = isMobile() ? 50 : 500; 
-    
-        for (let i = 0; i < numberOfDrops; i++) {
-            const drop = document.createElement('div');
-            drop.classList.add('raindrop');
-            drop.style.left = `${Math.random() * 125}vw`;
-            drop.style.animationDuration = `${Math.random() * 2 + 2}s`;
-            drop.style.animationDelay = `${Math.random() * 1.5 }s`;
-            rainContainer.appendChild(drop);
+        if (!isMobile()) {
+            const rainContainer = document.querySelector('.rain');
+            const numberOfDrops = 500; 
+        
+            for (let i = 0; i < numberOfDrops; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('raindrop');
+                drop.style.left = `${Math.random() * 125}vw`;
+                drop.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                drop.style.animationDelay = `${Math.random() * 1.5 }s`;
+                rainContainer.appendChild(drop);
+            }
         }
-    
+        
         function getRandomColor(currentTime) {
             const baseHue = (currentTime % (60 * 60)) / (60 * 60) * 360; 
             const saturation = 80 + Math.random() * 20; 
@@ -212,16 +227,15 @@ progressContainer.addEventListener('click', setProgress);
 
   if (loop) {
     loop = false;
-    loopButton.style.color = 'white'; // change the text color back to normal
-    loopButton.style.fontWeight = 'normal'; // change the font weight back to normal
-    loopcheckmarkIcon.style.opacity = 0; // hide the checkmark icon
+    loopButton.style.color = 'white'; 
+    loopButton.style.fontWeight = 'normal'; 
+    loopcheckmarkIcon.style.opacity = 0;
   } else {
     loop = true;
-    loopButton.style.color = 'white'; // change the text color to bold white
-    loopButton.style.fontWeight = 'bold'; // change the font weight to bold
-    loopcheckmarkIcon.style.opacity = 1; // show the checkmark icon
+    loopButton.style.color = 'white'; 
+    loopButton.style.fontWeight = 'bold'; 
+    loopcheckmarkIcon.style.opacity = 1; 
 
-    // Add scale click animation
     loopButton.classList.add('animate-click');
     setTimeout(() => {
       loopButton.classList.remove('animate-click');
@@ -233,16 +247,15 @@ progressContainer.addEventListener('click', setProgress);
 
   if (randomize) {
     randomize = false;
-    randomizeButton.style.color = 'white'; // change the text color back to normal
-    randomizeButton.style.fontWeight = 'normal'; // change the font weight back to normal
-    checkmarkIcon.style.opacity = 0; // hide the checkmark icon
+    randomizeButton.style.color = 'white'; 
+    randomizeButton.style.fontWeight = 'normal'; 
+    checkmarkIcon.style.opacity = 0; 
   } else {
     randomize = true;
-    randomizeButton.style.color = 'white'; // change the text color to bold white
-    randomizeButton.style.fontWeight = 'bold'; // change the font weight to bold
-    checkmarkIcon.style.opacity = 1; // show the checkmark icon
+    randomizeButton.style.color = 'white'; 
+    randomizeButton.style.fontWeight = 'bold'; 
+    checkmarkIcon.style.opacity = 1; 
 
-    // Add scale click animation
     randomizeButton.classList.add('animate-click');
     setTimeout(() => {
       randomizeButton.classList.remove('animate-click');
@@ -285,7 +298,7 @@ async function loadSong(index, songList) {
         let randomSymbol = symbols[Math.floor(Math.random() * symbols.length)]
         let limit = isMobile() ? 25 : 35
         if (songName.length + 4 > limit) {
-            fileNameElement.style.setProperty('--marquee-duration', `${isMobile() ? songName.length / 5 : songName.length / 20}s`); // Adjust the animation duration based on the length of the song title
+            fileNameElement.style.setProperty('--marquee-duration', `${isMobile() ? songName.length / 5 : songName.length / 20}s`);
             fileNameElement.innerHTML = `<marquee>${randomSymbol} ${songName} ${randomSymbol}</marquee>`;
         } else {
             fileNameElement.textContent = randomSymbol + " " + songName + " " + randomSymbol;
