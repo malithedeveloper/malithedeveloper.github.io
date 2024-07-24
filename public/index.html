@@ -1,1 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>malidev</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="black-fade" class="fade-animation">
+        <div id="randomTextObj" class="p"><i class="fa fa-heart" style="font-size:10px"></i> made by malidev itself <i class="fa fa-heart" style="font-size:10px"></i></div>
+        <div class="loading-text" style="font-size:125px">_loading_</div>
+        <div class="p"><i class="fa fa-heart" style="font-size:10px"></i> last update: 24.07.2024 <i class="fa fa-heart" style="font-size:10px"></i></div>
+        
+    </div>
 
+    <div class="container"></div>
+    <div class="rain"></div>
+    <div class="card">
+        <div class="bg lmao"></div>
+        <div class="content">
+            <div class="img">
+                <img src="https://avatars.githubusercontent.com/u/46960964?v=4&size=1024" alt="Placeholder Image">
+            </div>
+            <div id="parallax bigtext" class="h1">malidev</div>
+            <div class="p"><i class="fa fa-globe" style="font-size:20px"></i>  Türkiye</div>
+            <div class="p"><i class="fa fa-graduation-cap" style="font-size:20px"></i> Kocaeli University - Information Systems Engineer</div>
+            <div class="p"><i class="fa fa-code" style="font-size:20px"></i> VB, C#, Java, JS, Python, Minecraft Skript</div>
+            <div class="music-player">
+                <div class="file-name">
+                    <span id="file-name">No song loaded</span>
+                </div>
+                <audio id="audio" src=""style="display:none;" autoplay></audio>
+                <div class="controls">
+                    <button id="prev"><i class="fa fa-backward"></i></button>
+                    <button id="play-pause" class="circle-button"><i class="fa fa-play"></i></button>
+                    <button id="next"><i class="fa fa-forward"></i></button>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="time">
+                    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                </div>
+                <div class="volume-control">
+                    <i class="fa fa-volume-down"></i>
+                    <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+                    <i class="fa fa-volume-up"></i>
+                </div>
+            </div>           
+            <div class="button-container">
+                <button id="github"><i class="fa fa-github" style="font-size:35px"></i></button>
+                <button id="info"><i class="fa fa-info-circle" style="font-size:35px"></i></button>
+                <button id="discord"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                    <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+                  </svg></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        function redirectGithub(){ window.open("https://github.com/malithedeveloper", "_blank").focus(); }
+        function redirectInfo(){ alert("coming soon") }
+        function redirectDiscord(){ alert("malidev") }
+        
+        document.getElementById("github").addEventListener("click", redirectGithub);
+        document.getElementById("info").addEventListener("click", redirectInfo);
+        document.getElementById("discord").addEventListener("click", redirectDiscord);
+        
+        const blackFade = document.getElementById('black-fade');
+
+        function fadeOutAndRemove() {
+        blackFade.classList.add('fade-out');
+
+        setTimeout(() => {
+            blackFade.remove();
+        }, 4000); // Adjust timeout to match animation duration
+        }
+
+        // Trigger the fade out and removal when needed
+        fadeOutAndRemove();
+
+        const rainContainer = document.querySelector('.rain');
+        const numberOfDrops = 205; // Adjust the number of raindrops
+    
+        for (let i = 0; i < numberOfDrops; i++) {
+            const drop = document.createElement('div');
+            drop.classList.add('raindrop');
+            drop.style.left = `${Math.random() * 125}vw`;
+            drop.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            drop.style.animationDelay = `${Math.random() * 1.5 }s`;
+            rainContainer.appendChild(drop);
+        }
+    
+        // Function to generate a random HSL color
+        function getRandomColor(currentTime) {
+            const baseHue = (currentTime % (60 * 60)) / (60 * 60) * 360; // Hue based on current time (every minute)
+            const saturation = 80 + Math.random() * 20; // Saturation between 80% and 100%
+            const lightness = 50 + Math.random() * 10; // Lightness between 50% and 60%
+            return `hsl(${baseHue}, ${saturation}%, ${lightness}%)`;
+        }
+        // Create a div for the color filter
+        const colorFilter = document.createElement('div');
+        colorFilter.classList.add('color-filter');
+
+        // Update color initially
+        colorFilter.style.backgroundColor = getRandomColor(Date.now());
+
+        document.body.appendChild(colorFilter);
+
+        function animateColorFilter() {
+        const newColor = getRandomColor(Date.now());
+
+        colorFilter.style.animation = `backgroundColorChange 30s ease-in-out`;
+
+        const animation = colorFilter.animate([
+            { backgroundColor: colorFilter.style.backgroundColor },
+            { backgroundColor: newColor }
+        ], {
+            duration: 12500, // Animation duration (30 seconds)
+            easing: 'ease-in-out'
+        });
+
+        animation.onfinish = () => {
+            colorFilter.style.animation = ''; // Reset animation after completion
+            colorFilter.style.backgroundColor = newColor; // Update final color
+        };
+        }
+
+        animateColorFilter(); // Call initially
+
+        // Call animateColorFilter every minute (60 seconds)
+        setInterval(animateColorFilter, 20000);
+
+        const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('play-pause');
+    const playPauseIcon = playPauseBtn.querySelector('i');
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const volumeControl = document.getElementById('volume');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    let songs = [];
+    let symbols = ["᯽", "᯼", "᯾", "᥆", "𐲡", "𐲲", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", ""]
+    let songIndex = 0;
+
+    async function loadSongs() {
+        try {
+            const response = await fetch('/songs');
+            if (response.ok) {
+                songs = await response.json();
+                if (songs.length > 0) {
+                    loadSong(songIndex);
+                } else {
+                    console.error('No songs found in the /songs directory');
+                }
+            } else {
+                console.error('Failed to load songs from /songs directory');
+            }
+        } catch (error) {
+            console.error('Error fetching songs:', error);
+        }
+    }
+
+    function loadSong(index) {
+        audio.src = `/songs/${songs[index]}`;
+        let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('file-name').textContent = randomSelection + " " +songs[index].replace(".mp3", " " + randomSelection);
+        playPauseIcon.classList.remove('fa-pause');
+        playPauseIcon.classList.add('fa-play');
+    }
+
+    async function playRandomSong() {
+        await loadSongs();
+        // Randomly select a song and play it
+        songIndex = Math.floor(Math.random() * songs.length);
+        audio.src = `/songs/${songs[songIndex]}`;
+
+        // Update file name (optional)
+        let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('file-name').textContent = randomSelection + " " + songs[songIndex].replace(".mp3", " " + randomSelection);
+    }
+
+    function playPauseAudio() {
+        if (audio.paused) {
+            audio.play();
+            playPauseIcon.classList.remove('fa-play');
+            playPauseIcon.classList.add('fa-pause');
+        } else {
+            audio.pause();
+            playPauseIcon.classList.remove('fa-pause');
+            playPauseIcon.classList.add('fa-play');
+        }
+    }
+
+    function updateProgress() {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+
+        const currentMinutes = Math.floor(audio.currentTime / 60);
+        const currentSeconds = Math.floor(audio.currentTime % 60);
+        const durationMinutes = Math.floor(audio.duration / 60);
+        const durationSeconds = Math.floor(audio.duration % 60);
+
+        currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+        durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+    }
+
+    function changeVolume() {
+        audio.volume = volumeControl.value;
+    }
+
+    function nextSong() {
+        songIndex = (songIndex + 1) % songs.length;
+        loadSong(songIndex);
+        audio.play();
+    }
+
+    function prevSong() {
+        songIndex = (songIndex - 1 + songs.length) % songs.length;
+        loadSong(songIndex);
+        audio.play();
+    }
+
+    function randomText() {
+        let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('randomTextObj').textContent = randomSelection + " " + songs[songIndex].
+        return
+    }
+
+    playPauseBtn.addEventListener('click', playPauseAudio);
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', nextSong);
+    volumeControl.addEventListener('input', changeVolume);
+    nextBtn.addEventListener('click', nextSong);
+    
+    prevBtn.addEventListener('click', prevSong);
+
+
+    // Load songs on page load
+    window.addEventListener('load', loadSongs);
+    window.addEventListener('load', playRandomSong);
+    
+    const blackScreen = document.createElement('div');
+    blackScreen.style.position = 'fixed';
+    blackScreen.style.top = '0';
+    blackScreen.style.left = '0';
+    blackScreen.style.width = '100%';
+    blackScreen.style.height = '100%';
+    blackScreen.style.background = 'black';
+    blackScreen.style.zIndex = '1000'; // Make sure it's on top of everything
+    blackScreen.style.display = 'none'; // Hide it initially
+    blackScreen.innerHTML = '<div class="h1" style="color: white; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; font-size:15px; animation: none !important; opacity: 1; transform: none; gap: 10px; letter-spacing: 20px;">Invalid Resolution</div>';
+
+    document.body.appendChild(blackScreen);
+
+    function checkResolution() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        if (screenWidth < 840 || screenHeight < 670) {
+            blackScreen.style.display = 'block';
+        } else {
+            blackScreen.style.display = 'none';
+        }
+    }
+
+    // Check resolution on page load
+    checkResolution();
+
+    // Check resolution on window resize
+    window.addEventListener('resize', checkResolution);
+
+    </script>
+    
+</body>
+</html>
