@@ -49,7 +49,7 @@ body {
     justify-content: center;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-    transform: scale(0.6) translate(0%, 12%);
+    transform: scale(0.4) translate(0%, 12%);
     margin-bottom: 10.5em;
 }
 .bg {
@@ -58,12 +58,15 @@ body {
     inset: -4px;
     border-radius: 16px;
     overflow: hidden;
+    opacity: 0;
     
+
 }
 
 .lmao {
     filter: blur(3px);
     transition: filter 0.3s;
+    opacity: 0;
 }
 
 .bg::before {
@@ -74,21 +77,11 @@ body {
     left: 50%;
     min-width: 150%;
     min-height: 150%;
-    opacity: 0.5;
+    opacity: 0;
     background: linear-gradient(45deg, rgba(0, 0, 0), rgb(255, 255, 255));
-    animation: gradientMove 5s linear infinite;
     transform-origin: 0% 0%;
-    transform: rotate(0deg) translate(-50%, -50%);
 }
 
-@keyframes gradientMove {
-    from {
-        transform: rotate(0deg) translate(-50%, -50%);
-    }
-    to {
-        transform: rotate(360deg) translate(-50%, -50%);
-    }
-}
 
 .content {
     position: relative;
