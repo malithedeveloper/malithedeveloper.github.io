@@ -10,7 +10,7 @@
 <body>
     <div id="black-fade" class="fade-animation">
         <div id="randomTextObj" class="p"><i class="fa fa-heart" style="font-size:10px"></i> made by malidev itself <i class="fa fa-heart" style="font-size:10px"></i></div>
-        <div class="loading-text" style="font-size:125px">_loading_</div>
+        <div class="loading-text" style="font-size:85px">_loading_</div>
         <div class="p"><i class="fa fa-heart" style="font-size:10px"></i> last update: 24.07.2024 <i class="fa fa-heart" style="font-size:10px"></i></div>
         
     </div>
@@ -75,14 +75,13 @@
 
         setTimeout(() => {
             blackFade.remove();
-        }, 4000); // Adjust timeout to match animation duration
+        }, 4000);
         }
 
-        // Trigger the fade out and removal when needed
         fadeOutAndRemove();
 
         const rainContainer = document.querySelector('.rain');
-        const numberOfDrops = 205; // Adjust the number of raindrops
+        const numberOfDrops = 500; 
     
         for (let i = 0; i < numberOfDrops; i++) {
             const drop = document.createElement('div');
@@ -93,45 +92,34 @@
             rainContainer.appendChild(drop);
         }
     
-        // Function to generate a random HSL color
         function getRandomColor(currentTime) {
-            const baseHue = (currentTime % (60 * 60)) / (60 * 60) * 360; // Hue based on current time (every minute)
-            const saturation = 80 + Math.random() * 20; // Saturation between 80% and 100%
-            const lightness = 50 + Math.random() * 10; // Lightness between 50% and 60%
+            const baseHue = (currentTime % (60 * 60)) / (60 * 60) * 360; 
+            const saturation = 80 + Math.random() * 20; 
+            const lightness = 35 + Math.random() * 10; 
             return `hsl(${baseHue}, ${saturation}%, ${lightness}%)`;
         }
-        // Create a div for the color filter
+
         const colorFilter = document.createElement('div');
         colorFilter.classList.add('color-filter');
-
-        // Update color initially
-        colorFilter.style.backgroundColor = getRandomColor(Date.now());
 
         document.body.appendChild(colorFilter);
 
         function animateColorFilter() {
-        const newColor = getRandomColor(Date.now());
+            const newColor = getRandomColor(Date.now());
 
-        colorFilter.style.animation = `backgroundColorChange 30s ease-in-out`;
+            const animation = colorFilter.animate([
+                { backgroundColor: newColor }
+            ], {
+                duration: 10000,
+                easing: 'ease-in-out',
+                fill: 'forwards'
+            });
 
-        const animation = colorFilter.animate([
-            { backgroundColor: colorFilter.style.backgroundColor },
-            { backgroundColor: newColor }
-        ], {
-            duration: 12500, // Animation duration (30 seconds)
-            easing: 'ease-in-out'
-        });
-
-        animation.onfinish = () => {
-            colorFilter.style.animation = ''; // Reset animation after completion
-            colorFilter.style.backgroundColor = newColor; // Update final color
-        };
+            animation.onfinish = () => {
+                animateColorFilter(); 
+            };
         }
-
-        animateColorFilter(); // Call initially
-
-        // Call animateColorFilter every minute (60 seconds)
-        setInterval(animateColorFilter, 20000);
+        animateColorFilter(); 
 
         const audio = document.getElementById('audio');
     const playPauseBtn = document.getElementById('play-pause');
@@ -147,13 +135,15 @@
     let symbols = ["᯽", "᯼", "᯾", "᥆", "𐲡", "𐲲", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
     let songIndex = 0;
 
+    let titleRND = symbols[Math.floor(Math.random() * symbols.length)]
+    document.title = titleRND + " malidev " + titleRND
+
     async function loadSongs() {
     try {
         const response = await fetch('songs.json');
         if (response.ok) {
             songs = await response.json();
             if (songs.length > 0) {
-                // Extract song names and paths
                 const songList = songs.map((song) => {
                     return {
                         name: song.name,
@@ -176,9 +166,7 @@ async function loadSong(index, songList) {
     if (index >= 0 && index < songList.length) {
         const song = songList[index];
         console.log(`Loading song: ${song.name}`);
-        // Use song.name instead of song.path
         audio.src = song.path;
-        audio.play();
         songIndex = index;
         let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
         document.getElementById('file-name').textContent = randomSelection + " " + song.name + " " + randomSelection;
@@ -186,17 +174,6 @@ async function loadSong(index, songList) {
         console.error(`Invalid song index: ${index}`);
     }
 }
-
-    async function playRandomSong() {
-        await loadSongs();
-        // Randomly select a song and play it
-        songIndex = Math.floor(Math.random() * songs.length);
-        audio.src = `/songs/${songs[songIndex]}`;
-
-        // Update file name (optional)
-        let randomSelection = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('file-name').textContent = randomSelection + " " + songs[songIndex].replace(".mp3", " " + randomSelection);
-    }
 
     function playPauseAudio() {
         if (audio.paused) {
@@ -249,14 +226,10 @@ async function loadSong(index, songList) {
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', nextSong);
     volumeControl.addEventListener('input', changeVolume);
-    nextBtn.addEventListener('click', nextSong);
-    
+    nextBtn.addEventListener('click', nextSong);    
     prevBtn.addEventListener('click', prevSong);
 
-
-    // Load songs on page load
     window.addEventListener('load', loadSongs);
-    window.addEventListener('load', playRandomSong);
     
     const blackScreen = document.createElement('div');
     blackScreen.style.position = 'fixed';
@@ -265,8 +238,8 @@ async function loadSong(index, songList) {
     blackScreen.style.width = '100%';
     blackScreen.style.height = '100%';
     blackScreen.style.background = 'black';
-    blackScreen.style.zIndex = '1000'; // Make sure it's on top of everything
-    blackScreen.style.display = 'none'; // Hide it initially
+    blackScreen.style.zIndex = '1000'; 
+    blackScreen.style.display = 'none'; 
     blackScreen.innerHTML = '<div class="h1" style="color: white; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; font-size:15px; animation: none !important; opacity: 1; transform: none; gap: 10px; letter-spacing: 20px;">Invalid Resolution</div>';
 
     document.body.appendChild(blackScreen);
@@ -280,11 +253,7 @@ async function loadSong(index, songList) {
             blackScreen.style.display = 'none';
         }
     }
-
-    // Check resolution on page load
     checkResolution();
-
-    // Check resolution on window resize
     window.addEventListener('resize', checkResolution);
 
     </script>
