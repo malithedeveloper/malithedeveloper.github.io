@@ -51,7 +51,7 @@ body {
     justify-content: center;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-    transform: scale(0.575) translate(0%, 12%);
+    transform: scale(0.525) translate(0%, 12%);
     margin-bottom: 10.5em;
 }
 .bg {
