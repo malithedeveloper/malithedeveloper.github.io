@@ -403,31 +403,31 @@ async function loadSong(index, songList) {
 
     window.addEventListener('load', loadSongs);
     
-    const blackScreen = document.createElement('div');
-    blackScreen.style.position = 'fixed';
-    blackScreen.style.top = '0';
-    blackScreen.style.left = '0';
-    blackScreen.style.width = '100%';
-    blackScreen.style.height = '100%';
-    blackScreen.style.background = 'black';
-    blackScreen.style.zIndex = '1000'; 
-    blackScreen.style.display = 'none'; 
-    blackScreen.innerHTML = '<div class="h1" style="color: white; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; font-size:15px; animation: none !important; opacity: 1; transform: none; gap: 10px; letter-spacing: 20px;">Invalid Resolution</div>';
+    //const blackScreen = document.createElement('div');
+    //blackScreen.style.position = 'fixed';
+    //blackScreen.style.top = '0';
+    //blackScreen.style.left = '0';
+    //blackScreen.style.width = '100%';
+    //blackScreen.style.height = '100%';
+    //blackScreen.style.background = 'black';
+    //blackScreen.style.zIndex = '1000'; 
+    //blackScreen.style.display = 'none'; 
+    //blackScreen.innerHTML = '<div class="h1" style="color: white; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; font-size:15px; animation: none !important; opacity: 1; transform: none; gap: 10px; letter-spacing: 20px;">Invalid Resolution</div>';
 
-    document.body.appendChild(blackScreen);
+    //document.body.appendChild(blackScreen);
 
-    function checkResolution() {
-        if (isMobile()) return;
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        if (screenWidth < 840 || screenHeight < 670) {
-            blackScreen.style.display = 'block';
-        } else {
-            blackScreen.style.display = 'none';
-        }
-    }
-    checkResolution();
-    if (!isMobile()) window.addEventListener('resize', checkResolution);
+    //function checkResolution() {
+    //    if (isMobile()) return;
+    //    const screenWidth = window.innerWidth;
+    //    const screenHeight = window.innerHeight;
+    //    if (screenWidth < 840 || screenHeight < 670) {
+    //        blackScreen.style.display = 'block';
+    //    } else {
+    //        blackScreen.style.display = 'none';
+    //    }
+    //}
+    //checkResolution();
+    //if (!isMobile()) window.addEventListener('resize', checkResolution);
 
     </script>
     
