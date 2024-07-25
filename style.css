@@ -453,3 +453,80 @@ button:hover {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
   }
+
+  .rain-new {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: linear-gradient(to left top , rgb(43, 43, 43), #272727);
+    background-size: 100% 100px;
+    animation: rain-new 10s linear infinite;
+}
+
+@keyframes rain-new {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+.project-editor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-panel {
+    position: relative;
+    margin: 20px;
+    padding: 20px;
+    border: 5px solid rgba(200, 200, 200, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+}
+
+.project-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.project-subject {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.project-image {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px;
+    justify-content: bottom;
+    bottom: 0px;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-card {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+    background: #444;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
