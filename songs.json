@@ -4,6 +4,10 @@
         "path": "/songs/Aydın Kurtoğlu - Hayırlı Günler.mp3" 
     }, 
     { 
+        "name": "Baby Gang – Mentalité", 
+        "path": "/songs/Baby Gang – Mentalité.mp3" 
+    }, 
+    { 
         "name": "Berk Baysal - Yaralarını Ben Sarayım", 
         "path": "/songs/Berk Baysal - Yaralarını Ben Sarayım.mp3" 
     }, 
@@ -24,16 +28,28 @@
         "path": "/songs/Dedublüman & Cem Adrian - AŞK.mp3" 
     }, 
     { 
+        "name": "Dedublüman - Belki", 
+        "path": "/songs/Dedublüman - Belki.mp3" 
+    }, 
+    { 
+        "name": "Dedublüman - Günü Gelir", 
+        "path": "/songs/Dedublüman - Günü Gelir.mp3" 
+    }, 
+    { 
         "name": "DJ RICK 013 - THE AUTOTREM 1.0", 
         "path": "/songs/DJ RICK 013 - THE AUTOTREM 1.0.mp3" 
     }, 
     { 
-        "name": "LXNGVX - DNA", 
-        "path": "/songs/LXNGVX - DNA.mp3" 
-    }, 
-    { 
         "name": "Kahraman Deniz - Böyle Sever", 
         "path": "/songs/Kahraman Deniz - Böyle Sever.mp3" 
+    }, 
+    { 
+        "name": "Kargo - Yıldızların Altında", 
+        "path": "/songs/Kargo - Yıldızların Altında.mp3" 
+    }, 
+    { 
+        "name": "KDrew - Bullseye", 
+        "path": "/songs/KDrew - Bullseye.mp3" 
     }, 
     { 
         "name": "London View (Slowed)", 
@@ -44,11 +60,27 @@
         "path": "/songs/LVBEL C5 - GELMEZSEN GELME.mp3" 
     }, 
     { 
+        "name": "LXNGVX - DNA", 
+        "path": "/songs/LXNGVX - DNA.mp3" 
+    }, 
+    { 
         "name": "Mabel Matiz - Hanfendi", 
         "path": "/songs/Mabel Matiz - Hanfendi.mp3" 
     }, 
     { 
+        "name": "Pendulum - Propane Nightmares", 
+        "path": "/songs/Pendulum - Propane Nightmares.mp3" 
+    }, 
+    { 
+        "name": "Reckol & Berk Erdemanar - Trankobuskas Remix", 
+        "path": "/songs/Reckol & Berk Erdemanar - Trankobuskas Remix.mp3" 
+    }, 
+    { 
         "name": "Tuğkan - Kusura Bakma", 
         "path": "/songs/Tuğkan - Kusura Bakma.mp3" 
+    }, 
+    { 
+        "name": "FEEN - Punchline", 
+        "path": "/songs/FEEN - Punchline.mp3" 
     } 
 ] 
