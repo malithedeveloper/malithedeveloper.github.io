@@ -20,59 +20,88 @@
 
     <div class="container"></div>
     <div class="rain"></div>
-    <div class="card">
-        <div class="bg lmao"></div>
-        <div class="content">
-            <div class="img">
-                <img src="https://avatars.githubusercontent.com/u/46960964?v=4&size=1024" alt="Placeholder Image">
+    
+    <div class="viewport-wrapper">
+        <!-- Main Card -->
+        <div class="page-container" id="page-container">
+        <div class="page main-page">
+            <div class="card">
+                <div class="bg lmao"></div>
+                <div class="content">
+                    <div id="parallax bigtext" class="h1">malidev</div>
+                    <div class="button-container">
+                        <button id="github"><i class="fa fa-github" style="font-size:35px"></i></button>
+                        <button id="info"><i class="fa fa-info-circle" style="font-size:35px"></i></button>
+                        <button id="discord"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                            <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+                          </svg></i></button>
+                    </div>
+                </div>
             </div>
-            <div id="parallax bigtext" class="h1">malidev</div>
-            <div id="mobileFix" class="p"><i class="fa fa-globe" style="font-size:20px"></i>  Türkiye</div>
-            <div id="mobileFix" class="p"><i class="fa fa-graduation-cap" style="font-size:20px"></i> Yalova University - Computer Science</div>
-            <div id="mobileFix" class="p"><i class="fa fa-code" style="font-size:20px"></i> VB.NET, C#, Java, JS, Python, Minecraft Skript, C</div>
-            <div class="music-player">
-                <div class="file-name">
-                    <span id="file-name">No song loaded</span>
+        </div>
+        
+        <!-- Portfolio Page -->
+        <div class="page portfolio-page">
+            <div class="card">
+                <div class="bg"></div>
+                <div class="content">
+                    <div class="portfolio-section">
+                        <div class="portfolio-header">
+                            <h2>INFO</h2>
+                        </div>
+                        <div class="portfolio-content">
+                            <div class="portfolio-item">
+                                <h3><i class="fa fa-user"></i> About Me</h3>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <strong><i class="fa fa-map-marker"></i> Location</strong>
+                                        <span>Türkiye</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <strong><i class="fa fa-graduation-cap"></i> Education</strong>
+                                        <span>Yalova University</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <strong><i class="fa fa-book"></i> Major</strong>
+                                        <span>Computer Science</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <strong><i class="fa fa-code"></i> Status</strong>
+                                        <span>Student Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <h3><i class="fa fa-rocket"></i> Programming Languages</h3>
+                                <ul>
+                                    <li>C</li>
+                                    <li>C#</li>
+                                    <li>VB.NET</li>
+                                    <li>JavaScript</li>
+                                    <li>Electron</li>
+                                    <li>TypeScript</li>
+                                    <li>React</li>
+                                    <li>NextJS</li>
+                                    <li>NodeJS</li>
+                                    <li>Python</li>                                
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h3><i class="fa fa-laptop"></i> Development Focus</h3>
+                                <p>Full-stack developer with experience in web development, software engineering, game scripting/modding and reverse engineering. But I'll learn more.</p>
+                            </div>
+                        </div>
+                        <div id="portfolio-back" class="go-back-container">
+                            <div class="go-back-arrow">^</div>
+                            <div class="go-back-text">Go back</div>
+                        </div>
+                    </div>
                 </div>
-                <audio id="audio" src=""style="display:none;" autoplay></audio>
-                <div class="controls">
-                    <button id="randomize" class="randomize-button">
-                        <i class="fa fa-random"></i>
-                        <span id="checkmark-icon" class="checkmark-icon">
-                          <i class="fa fa-check"></i>
-                        </span>
-                      </button>
-                    <button id="prev"><i class="fa fa-backward"></i></button>
-                    <button id="play-pause" class="circle-button"><i class="fa fa-play"></i></button>
-                    <button id="next"><i class="fa fa-forward"></i></button>
-                    <button id="loop" class="loop-button">
-                        <i class="fa fa-repeat"></i>
-                        <span id="loop-checkmark-icon" class="loop-checkmark-icon">
-                          <i class="fa fa-check"></i>
-                        </span>
-                      </button>
-                </div>
-                <div class="progress-container" id="progress-container">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>                
-                <div class="time">
-                    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
-                </div>
-                <div class="volume-control">
-                    <i class="fa fa-volume-down"></i>
-                    <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-                    <i class="fa fa-volume-up"></i>
-                </div>
-            </div>           
-            <div class="button-container">
-                <button id="github"><i class="fa fa-github" style="font-size:35px"></i></button>
-                <button id="info"><i class="fa fa-info-circle" style="font-size:35px"></i></button>
-                <button id="discord"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
-                    <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
-                  </svg></i></button>
             </div>
         </div>
     </div>
+    </div>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="script.js"> </script>
     

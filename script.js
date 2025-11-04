@@ -55,7 +55,13 @@ function redirectGithub() {
 }
 
 function redirectInfo() {
-    alert("coming soon")
+    const pageContainer = document.getElementById('page-container');
+    pageContainer.classList.add('show-portfolio');
+}
+
+function closePortfolio() {
+    const pageContainer = document.getElementById('page-container');
+    pageContainer.classList.remove('show-portfolio');
 }
 
 function redirectDiscord() {
@@ -65,6 +71,7 @@ function redirectDiscord() {
 document.getElementById("github").addEventListener("click", redirectGithub);
 document.getElementById("info").addEventListener("click", redirectInfo);
 document.getElementById("discord").addEventListener("click", redirectDiscord);
+document.getElementById("portfolio-back").addEventListener("click", closePortfolio);
 
 const blackFade = document.getElementById('black-fade');
 
@@ -121,216 +128,9 @@ function animateColorFilter() {
 }
 animateColorFilter();
 
-const audio = document.getElementById('audio');
-const playPauseBtn = document.getElementById('play-pause');
-const playPauseIcon = playPauseBtn.querySelector('i');
-const progressBar = document.getElementById('progress-bar');
-const currentTimeEl = document.getElementById('current-time');
-const durationEl = document.getElementById('duration');
-const volumeControl = document.getElementById('volume');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const randomizeButton = document.getElementById('randomize');
-const loopButton = document.getElementById('loop');
-const checkmarkIcon = document.getElementById('checkmark-icon');
-const loopcheckmarkIcon = document.getElementById('loop-checkmark-icon');
-let songs = [];
-let symbols = ["!!", "᯼", "᯾", "O", "-", "+", "■", "♕", "✦", "♫", "♪", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
-let songIndex = 0;
-let randomize = false;
-let loop = false;
-
-function setProgress(e) {
-    const width = this.clientWidth;
-    const clickX = e.offsetX;
-    const duration = audio.duration;
-
-    audio.currentTime = (clickX / width) * duration;
-}
-
-const progressContainer = document.getElementById('progress-container');
-progressContainer.addEventListener('click', setProgress);
-
+let symbols = ["!!", "᯼", "᯾", "O", "-", "+", "■", "♕", "✦", "☆", "♨", "◑", "★", "☘", "☣", "⚑", "⚡", "⛬", "☄", "<3"]
 let titleRND = symbols[Math.floor(Math.random() * symbols.length)]
 document.title = titleRND + " malidev " + titleRND
-
-async function toggleLoopButton() {
-
-    if (loop) {
-        loop = false;
-        loopButton.style.color = 'white';
-        loopButton.style.fontWeight = 'normal';
-        loopcheckmarkIcon.style.opacity = 0;
-    } else {
-        loop = true;
-        loopButton.style.color = 'white';
-        loopButton.style.fontWeight = 'bold';
-        loopcheckmarkIcon.style.opacity = 1;
-
-        loopButton.classList.add('animate-click');
-        setTimeout(() => {
-            loopButton.classList.remove('animate-click');
-        }, 500);
-    }
-    localStorage.setItem('loop', loop);
-}
-
-async function toggleRandomButton() {
-
-    if (randomize) {
-        randomize = false;
-        randomizeButton.style.color = 'white';
-        randomizeButton.style.fontWeight = 'normal';
-        checkmarkIcon.style.opacity = 0;
-    } else {
-        randomize = true;
-        randomizeButton.style.color = 'white';
-        randomizeButton.style.fontWeight = 'bold';
-        checkmarkIcon.style.opacity = 1;
-
-        randomizeButton.classList.add('animate-click');
-        setTimeout(() => {
-            randomizeButton.classList.remove('animate-click');
-        }, 500);
-    }
-    localStorage.setItem('randomize', randomize);
-}
-
-async function loadSongs() {
-    try {
-        const response = await fetch('songs.json');
-        if (response.ok) {
-            songs = await response.json();
-            if (songs.length > 0) {
-                const songList = songs.map((song) => {
-                    return {
-                        name: song.name,
-                        path: song.path
-                    };
-                });
-                songIndex = Math.floor(Math.random() * songs.length);
-                loadSong(songIndex, songList);
-            } else {
-                console.error('No songs found in the /songs directory');
-            }
-        } else {
-            console.error('Failed to load songs from /songs directory');
-        }
-    } catch (error) {
-        console.error('Error fetching songs:', error);
-    }
-}
-
-async function loadSong(index, songList) {
-    if (index >= 0 && index < songList.length) {
-        const song = songList[index];
-        audio.src = song.path;
-        songIndex = index;
-        const songName = songList[index].name;
-        const fileNameElement = document.getElementById('file-name');
-        let randomSymbol = symbols[Math.floor(Math.random() * symbols.length)]
-        let limit = isMobile() ? 25 : 35
-        if (songName.length + 4 > limit) {
-            fileNameElement.style.setProperty('--marquee-duration', `${isMobile() ? songName.length / 5 : songName.length / 20}s`);
-            fileNameElement.innerHTML = `<marquee>${randomSymbol} ${songName} ${randomSymbol}</marquee>`;
-        } else {
-            fileNameElement.textContent = randomSymbol + " " + songName + " " + randomSymbol;
-        }
-        localStorage.setItem('lastPlayedSong', songIndex);
-    } else {
-        console.error(`Invalid song index: ${index}`);
-    }
-}
-
-function playPauseAudio() {
-    if (audio.paused) {
-        audio.play();
-        playPauseIcon.classList.remove('fa-play');
-        playPauseIcon.classList.add('fa-pause');
-    } else {
-        audio.pause();
-        playPauseIcon.classList.remove('fa-pause');
-        playPauseIcon.classList.add('fa-play');
-    }
-}
-
-playPauseBtn.addEventListener('click', playPauseAudio);
-
-function updateProgress() {
-    const progressPercent = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = `${progressPercent}%`;
-
-    const currentMinutes = Math.floor(audio.currentTime / 60);
-    const currentSeconds = Math.floor(audio.currentTime % 60);
-    const durationMinutes = Math.floor(audio.duration / 60);
-    const durationSeconds = Math.floor(audio.duration % 60);
-
-    currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
-    durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
-}
-
-audio.addEventListener('timeupdate', updateProgress);
-
-audio.addEventListener('ended', () => {
-    if (randomize) {
-        songIndex = Math.floor(Math.random() * songs.length);
-        loadSong(songIndex, songs);
-        audio.play();
-    } else if (loop) {
-        loadSong(songIndex, songs);
-        audio.play();
-    } else {
-        songIndex = (songIndex + 1) % songs.length;
-        loadSong(songIndex, songs);
-        audio.play();
-    }
-});
-
-volumeControl.addEventListener('input', (e) => {
-    const volumeValue = e.target.value / 5;
-    audio.volume = volumeValue;
-    localStorage.setItem('volume', volumeValue);
-});
-
-prevBtn.addEventListener('click', () => {
-    songIndex = (songIndex - 1 + songs.length) % songs.length;
-    loadSong(songIndex, songs);
-    audio.play();
-});
-
-nextBtn.addEventListener('click', () => {
-    songIndex = (songIndex + 1) % songs.length;
-    loadSong(songIndex, songs);
-    audio.play();
-});
-
-randomizeButton.addEventListener('click', toggleRandomButton);
-loopButton.addEventListener('click', toggleLoopButton);
-
-function loadSettings() {
-    const savedVolume = localStorage.getItem('volume');
-    if (savedVolume !== null) {
-        audio.volume = parseFloat(savedVolume);
-        volumeControl.value = audio.volume * 10;
-    }
-    const savedRandomize = localStorage.getItem('randomize');
-    if (savedRandomize !== null) {
-        randomize = savedRandomize === 'true';
-        randomizeButton.style.color = randomize ? 'white' : '';
-        randomizeButton.style.fontWeight = randomize ? 'bold' : '';
-        checkmarkIcon.style.opacity = randomize ? 1 : 0;
-    }
-    const savedLoop = localStorage.getItem('loop');
-    if (savedLoop !== null) {
-        loop = savedLoop === 'true';
-        loopButton.style.color = loop ? 'white' : '';
-        loopButton.style.fontWeight = loop ? 'bold' : '';
-        loopcheckmarkIcon.style.opacity = loop ? 1 : 0;
-    }
-}
-
-loadSettings();
-loadSongs();
 
 //const blackScreen = document.createElement('div');
 //blackScreen.style.position = 'fixed';

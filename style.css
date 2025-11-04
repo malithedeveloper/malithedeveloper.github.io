@@ -22,10 +22,40 @@ body {
     font-family: "Roboto Mono", monospace;
 }
 
+.viewport-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 200vh;
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: translateY(0);
+    position: relative;
+}
+
+.page-container.show-portfolio {
+    transform: translateY(-100vh);
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
 .card {
     position: relative;
-    width: 800px;
-    height: 640px;
+    width: 520px;
+    height: 140px;
     background: #444;
     border-radius: 14px;
     display: flex;
@@ -34,6 +64,7 @@ body {
     justify-content: center;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
 }
 .bg {
     position: absolute;
@@ -73,7 +104,7 @@ body {
 
 .content {
     position: relative;
-    padding: 14px 16px;
+    padding: 14px 15px;
     text-align: center;
 }
 
@@ -88,6 +119,7 @@ body {
     animation-delay: 1.5s;
     margin-left: auto;
     margin-right: auto;
+    transform: translateY(-50%);
 }
 
 @keyframes anim_once{
@@ -162,7 +194,7 @@ button {
     padding: 10px 40px;
     border-radius: 50px;
     cursor: pointer;
-    transform: translate(0%,100%);
+    transform: translate(0%,10%);
     transition: background-color 0.3s;
     margin-left: auto;
     margin-right: auto;
@@ -172,13 +204,215 @@ button:hover {
     background-color: #777;
 }
 
-.rain {
+.portfolio-page .card {
+    width: 900px;
+    height: 700px;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+}
+
+.portfolio-page .card .bg {
     position: absolute;
+    z-index: -1;
+    inset: -4px;
+    border-radius: 16px;
+    overflow: hidden;
+    filter: none;
+}
+
+.portfolio-page .card .bg::before {
+    content: '';
+    position: absolute;
+    aspect-ratio: 1/1;
+    top: 50%;
+    left: 50%;
+    min-width: 150%;
+    min-height: 150%;
+    background: linear-gradient(45deg, rgba(0, 0, 0), rgb(255, 255, 255));
+    animation: gradientMove 1s linear infinite;
+    transform-origin: 0% 0%;
+    transform: rotate(0deg) translate(-50%, -50%);
+}
+
+.portfolio-page .content {
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    transform: scale(0.9);
+    transform-origin: center;
+}
+
+.portfolio-page .portfolio-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: none;
+}
+
+.portfolio-header h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    letter-spacing: 6px;
+    font-family: "wideFont2", sans-serif;
+}
+
+.portfolio-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.portfolio-page .portfolio-item {
+    padding: 16px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.portfolio-item:hover {
+    background-color: rgba(0, 0, 0, 0.45);
+    transform: translateY(-3px);
+    box-shadow: none;
+}
+
+.portfolio-item h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: white;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+
+.portfolio-item h3 i {
+    margin-right: 8px;
+    opacity: 0.8;
+    font-size: 1em;
+}
+
+.portfolio-item p {
+    font-size: 0.88em;
+    margin: 0 0 12px 0;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.portfolio-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.portfolio-item ul li {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.portfolio-item ul li:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 0;
+}
+
+.info-item {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.85em;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.info-item:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.info-item strong {
+    display: block;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 6px;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+}
+
+.info-item strong i {
+    margin-right: 6px;
+    opacity: 0.8;
+}
+
+.info-item span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95em;
+}
+
+.go-back-container {
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.go-back-container:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.go-back-arrow {
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+    line-height: 0.8;
+    animation: bounce 2s infinite;
+}
+
+.go-back-text {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.rain {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
 }
 
 .raindrop {
@@ -199,7 +433,7 @@ button:hover {
 }
 
 .container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -223,6 +457,7 @@ button:hover {
 
     animation: move 60s linear infinite;
     z-index: -2;
+    pointer-events: none;
 }
   
 @keyframes move {
@@ -247,155 +482,271 @@ button:hover {
     pointer-events: none; 
     mix-blend-mode: multiply; 
     opacity: 0.5; 
-    transition: background-color 30s
+    transition: background-color 30s;
+    z-index: -1;
 }
 
-.music-player {
-    width: 300px;
-    padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
+.portfolio-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform: translate(0%,15%);
-    gap: 10px;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    transform: translate(0%,-100%);
-    gap: 20px;
-}
-
-.circle-button {
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    border: none;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
     padding: 20px;
+}
+
+.portfolio-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.portfolio-modal {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-overlay.is-open .portfolio-modal {
+    transform: scale(1);
+}
+
+.portfolio-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    transform: translate(0%,90%);
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-.circle-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+.portfolio-close:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-#prev, #next, #randomize, #loop {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-#prev:hover, #next:hover, #randomize:hover, #loop:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-}
-
-.progress-container {
-    position: relative;
+.portfolio-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 7px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 10px 0;
-    transition: box-shadow 0.3s;
-}
-
-.progress-container:hover {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-}
-
-.progress-bar {
-    position: absolute;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 0%;
-    transition: width 0.1s;
-}
-
-.time {
-    color: white;
-    font-size: 0.95em;
-    display: flex;
-    gap: 15px;
-    margin-bottom: 2px;
-}
-
-.volume-control {
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
 }
 
-#volume {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100px;
-    background: rgba(255, 255, 255, 0.3);
-    height: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-    outline: none;
-    transition: box-shadow 0.3s;
+.portfolio-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
 }
 
-#volume::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: rgba(255, 255, 255, 0.7);
+.portfolio-modal {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-overlay.is-open .portfolio-modal {
+    transform: scale(1);
+}
+
+.portfolio-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-#volume::-webkit-slider-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-}
-
-.file-name {
+    background-color: rgba(255, 255, 255, 0.15);
     color: white;
-    font-size: 1em;
-    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-#file-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-.marquee {
-    animation: marquee var(--marquee-duration) linear infinite;
+.portfolio-close:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+.portfolio-section {
+    width: 100%;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    border: none;
+    box-shadow: none;
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: none;
+}
+
+.portfolio-header h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.portfolio-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.portfolio-item {
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.portfolio-item:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: transparent;
+}
+
+.portfolio-item h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: white;
+}
+
+.portfolio-item h3 i {
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+.portfolio-item p {
+    font-size: 0.95em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+}
+
+.portfolio-page .portfolio-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.portfolio-page .card {
+    width: 800px;
+    height: 640px;
+}
+
+.portfolio-page .content {
+    padding: 60px 20px 20px 20px;
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.portfolio-header h2 {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+    letter-spacing: 3px;
+    font-family: "wideFont", sans-serif;
+}
+
+.portfolio-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.portfolio-item {
+    padding: 18px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.portfolio-item:hover {
+    background-color: rgba(0, 0, 0, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: transparent;
+}
+
+.portfolio-item h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.portfolio-item h3 i {
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+.portfolio-item p {
+    font-size: 0.9em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
 }
 
 .fade-animation {
