@@ -18,9 +18,9 @@ if (isMobile()) {
     document.body.classList.add('no-scroll');
     const link = document.getElementById('dynamic-stylesheet');
     if (isMobile()) {
-        link.href = 'style_mobile.css';
+        link.href = 'stmb.css';
     } else {
-        link.href = 'style.css';
+        link.href = 'st.css';
     }
 }
 
